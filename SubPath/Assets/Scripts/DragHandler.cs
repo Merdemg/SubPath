@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public static GameObject itemBeingDragged;
+    public GameObject itemBeingDragged;
 
     Vector3 startPos;
 
@@ -24,9 +24,9 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        itemBeingDragged = gameObject;
         startPos = transform.position;
 
+        // Let the game manager know what to spawn later
         gameManager.setPrefab(prefabToSpawn);
     }
 
@@ -38,9 +38,6 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnEndDrag(PointerEventData eventData)
     {
         transform.position = startPos;
-
         raycaster.castRay();
-
-        itemBeingDragged = null;
     }
 }
